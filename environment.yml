@@ -1,0 +1,16 @@
+name: llm_relevance
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12.2
+  - pip
+  - pip:
+      - pandas==2.3.0
+      - tqdm==4.67.1
+      - python-dotenv==0.21.1
+      - tavily-python==0.7.9
+      - langgraph==0.5.1
+      - openai==1.93.0
+      - jupyter==1.0.0
+      - notebook==7.1.2      
