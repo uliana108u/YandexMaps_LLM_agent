@@ -38,15 +38,15 @@ def main(version="v1", batch_size=5):
     if not os.path.exists(DATA_PATH):
         raise FileNotFoundError(f"Файл с данными не найден: {DATA_PATH}")
     train_data, val_data, test_data = load_dataset(DATA_PATH, drop_uncertain=True, val_frac=0.01)
-    print(f"✅ Данные загружены. Train: {len(train_data)}, Val: {len(val_data)}, Test: {len(test_data)}")
+    print(f" Данные загружены. Train: {len(train_data)}, Val: {len(val_data)}, Test: {len(test_data)}")
 
     # Инициализация агента
     agent_evaluator = RelevanceAgentEvaluator(use_cache=True, prompt_version=version)
 
     # Оценка на валидации
-    print(f"\n🚀 Запуск на валидации (версия промта: {version})...")
+    print(f"\n Запуск на валидации (версия промта: {version})...")
     val_preds, val_acc = agent_evaluator.run_full_evaluation(val_data, batch_size=batch_size)
-    print(f"✅ Validation accuracy: {val_acc:.4f}")
+    print(f" Validation accuracy: {val_acc:.4f}")
 
     # Оценка на тесте
     print(f"\n🚀 Запуск на тесте (версия промта: {version})...")
@@ -59,7 +59,7 @@ def main(version="v1", batch_size=5):
 
     val_preds.to_csv(val_filename, index=False)
     test_preds.to_csv(test_filename, index=False)
-    print(f"📁 Результаты сохранены в:\n- {val_filename}\n- {test_filename}")
+    print(f" Результаты сохранены в:\n- {val_filename}\n- {test_filename}")
 
 # Точка входа при запуске из командной строки
 if __name__ == "__main__":
