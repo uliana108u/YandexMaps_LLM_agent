@@ -1,11 +1,11 @@
 # Assessing Organizations Relevance to Queries on Yandex.Maps using LLM Agent
 
-```markdown
-**Goal:** Building an LLM agent that evaluates the relevance of organizations on Yandex Maps to broad user queries. Its comparison with a strong baseline.
 
----
+Building an LLM agent that evaluates the relevance of organizations on Yandex Maps to broad user queries. Its comparison with a strong baseline.
 
-### Project Description
+
+
+### Description
 
 The project aims to research and implement approaches using Large Language Models (LLMs) for the task of **relevance estimation** of organizations to user queries.
 The LLM agent analyzes input data (a user query and information about an organization), requests additional context via search if necessary, and outputs a binary decision: **whether the organization is relevant to the query or not**.
@@ -18,48 +18,41 @@ The baseline — the model receives a fixed few-shot in-context learning prompt 
 
 The agent is structured as a graph of three nodes:
 
-*   decide_need_search — decides whether a search for additional information is needed.
-*   search — if necessary, performs a search via the Tavily API.
-*   classify — evaluates relevance using the original data + search results.
-
-The agent's behavior depends on the version of the prompts used (there are 3 in this project).
+1)  decide_need_search — decides whether a search for additional information is needed.
+2)   search — if necessary, performs a search via the Tavily API.
+3)  classify — evaluates relevance using the original data + search results.
 
 ### Agent and Prompt Versions
 
-🔸 classify_v1.txt — Agent V1
+1) classify_v1.txt (Agent V1)
 
 The prompt structure is similar to the baseline.
 If search is activated, external information is added to the Reviews field.
 Uses the same classification logic, but with the ability to get more data.
 
-🔸 classify_v2.txt — Agent V2
+2) classify_v2.txt (Agent V2)
 
 External information is separated into a distinct "Additional Information" field, rather than being added to the "Reviews" field.
 The prompt is supplemented with explicit checks for complex cases, especially regarding the address. An attempt to improve control over the context.
 
-🔸 classify_v3.txt — Agent V3
+3) classify_v3.txt (Agent V3)
 
 Same as version 2, but the search query is slightly modified: only the first organization name + category + address + query are taken. Lines containing "Missing" are removed from the search results.
 
 ### Search Decision (need_search)
 
-🔸 need_search_v1.txt
+1) need_search_v1.txt - Simple YES/NO logic, without clear criteria.
 
-Simple YES/NO logic, without clear criteria.
+2) need_search_v2.txt - Clearly specifies when search is needed and when it is not. Examples and specific decision-making conditions.
 
-🔸 need_search_v2.txt
+3) need_search_v3.txt - Temporary stub. Currently, this is a copy of need_search_v1.txt. And it is used to run agent 3.
 
-Clearly specifies when search is needed and when it is not. Examples and specific decision-making conditions.
+### Libraries
+**openai:** for calling OpenAI models (used everywhere)
 
-🔸 need_search_v3.txt
-Temporary stub. Currently, this is a copy of need_search_v1.txt. And it is used to run agent 3.
+**LangGraph:** defines the agent's action graph.
 
-### Used Libraries
-openai: for calling OpenAI models (used everywhere)
-
-LangGraph: defines the agent's action graph.
-
-Tavily: source of external information (web search).
+**Tavily:** source of external information (web search).
 
 ---
 ### Repository Structure
@@ -110,7 +103,7 @@ llm_relevance_agent/
 ├── environment.yml            # conda dependencies
 ├── .env                       # API keys and configurations
 └── main_runner.py             # Main entry point for running the agent (building the graph, running on data, evaluation, and saving predictions)
-'''
+```
 
 ---
 
@@ -119,7 +112,7 @@ llm_relevance_agent/
 **Accuracy on validation (299 examples):**
 
 * `baseline`: 0.6856
-* `agent1`: **0.6957** (+1.01 p.p.)
+* `agent1`: **0.6957**
 * `agent2`: 0.6221
 * `agent3`: 0.6388
 
@@ -137,7 +130,6 @@ llm_relevance_agent/
   * Test: 66 (13.2% of the dataset)
   * Up to ~70% of these are potentially related to annotation errors, indicating potential issues with target quality.
 
-[Link](https://nbviewer.org/github/ChernayaAnastasia/Assessing_organizations_relevance_to_queries_on_Yandex.Maps_using_LLM_agent/blob/main/experiments/agent/agent_error_analysis.ipynb#) to the notebook with result and error analysis.
 
 ### Overall Conclusion
 
@@ -171,6 +163,8 @@ python llm_relevance_agent/main_runner.py --batch_size 5
 
 or via notebook:
 experiments/agent/run_agent_ipynb.ipynb
+
+
 
 
 
