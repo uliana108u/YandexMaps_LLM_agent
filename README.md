@@ -130,6 +130,8 @@ llm_relevance_agent/
   * Test: 66 (13.2% of the dataset)
   * Up to ~70% of these are potentially related to annotation errors, indicating potential issues with target quality.
 
+  [Link](https://github.com/uliana108u/YandexMaps_LLM_agent/blob/main/experiments/agent/agent_error_analysis.ipynb#) to the error analysis notebook
+
 
 ### Overall Conclusion
 
