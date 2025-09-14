@@ -49,9 +49,9 @@ def main(version="v1", batch_size=5):
     print(f" Validation accuracy: {val_acc:.4f}")
 
     # Оценка на тесте
-    print(f"\n🚀 Запуск на тесте (версия промта: {version})...")
+    print(f"\n Запуск на тесте (версия промта: {version})...")
     test_preds, test_acc = agent_evaluator.run_full_evaluation(test_data, batch_size=batch_size)
-    print(f"✅ Test accuracy: {test_acc:.4f}")
+    print(f" Test accuracy: {test_acc:.4f}")
 
     # Сохранение результатов
     val_filename = os.path.join(AGENT_RESULTS_DIR, f"agent_val_predictions_{version}.csv")
